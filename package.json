@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/wesleymonaro/curso-node#readme",
   "dependencies": {
-    "promise": "^8.0.1"
+    "promise": "^8.0.1",
+    "socket.io": "^2.1.1"
   }
 }

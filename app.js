@@ -1,27 +1,9 @@
-var http = require('http');
-var fs = require('fs');
-var url = require('url');
+var io = require('socket.io')(3000);
 
-var server = http.createServer((req, res) => {
+io.on('connection', (socket) => {
+    console.log('Novo usuário conectado');
 
-    var url_parts = url.parse(req.url);
-    var path = url_parts.pathname;
-
-    fs.readFile(__dirname + path, (err, data) => {
-        if (err) {
-            res.writeHead(404, { 'Content-Type': 'text/html' });
-            res.write('<p>Not found</p>');
-
-        } else {
-            res.writeHead(200, { 'Content-Type': 'text/html' });
-            res.write(data.toString());
-        }
-
-        res.end();
+    socket.on('client_hello', (data) => {
+        io.sockets.emit('server_hello', data)
     })
-
 })
-
-server.listen(3000);
-
-//http://localhost:3000/my_file.txt
