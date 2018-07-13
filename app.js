@@ -1,38 +1,22 @@
-var fs = require('fs');
+var fs = require('fs'),
+    Promise = require('promise');
 
-//CRIANDO ARQUIVO
-// fs.writeFile('my_file.txt', 'Curso de Node da TreinaWeb', function (err) {
-//     if (err) {
-//         console.log(err);
-//         return;
-//     }
+function read(file) {
+    return new Promise((resolve, reject) => {
+        fs.readFile(file, (err, data) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(data.toString());
+            }
+        })
+    })
+}
 
-//     console.log('Arquivo criado');
-// });
-
-
-//LE O CONTEUDO DO ARQUIVO
-// fs.readFile('my_file.txt', function (err, data) {
-//     if (err) {
-//         console.log(err);
-//         return;
-//     }
-
-//     console.log(data.toString());
-// });
-
-
-//ADICIONA CONTEUDO AO FINAL
-// fs.appendFile('my_file.txt', 'Teste', function (err) {
-//     if (err) {
-//         console.log(err);
-//         return;
-//     }
-
-//     console.log('Arquivo alterado');
-// });
-
-
-//LE O CONTEUDO DE FORMA SÍNCRONA
-var data = fs.readFileSync('my_file.txt');
-console.log(data.toString());
+read('my_file.txt')
+    .then((data) => {
+        console.log(data);
+        return '1111'
+    })
+    .catch((err) => console.log(err))
+    .done((data) => console.log(data))
