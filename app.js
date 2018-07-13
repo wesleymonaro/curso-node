@@ -1,26 +1,38 @@
-var EventEmitter = require('events');
+var fs = require('fs');
 
-// var emitter = new EventEmitter();
+//CRIANDO ARQUIVO
+// fs.writeFile('my_file.txt', 'Curso de Node da TreinaWeb', function (err) {
+//     if (err) {
+//         console.log(err);
+//         return;
+//     }
 
-// emitter.on('meu_evento', function (numero) {
-//     console.log('meu evento', numero);
-// })
-
-// emitter.emit('meu_evento', 123)
+//     console.log('Arquivo criado');
+// });
 
 
-class Cao extends EventEmitter{
-    latir(){
-        console.log('au au');
-    }
-}
+//LE O CONTEUDO DO ARQUIVO
+// fs.readFile('my_file.txt', function (err, data) {
+//     if (err) {
+//         console.log(err);
+//         return;
+//     }
 
-var Rex = new Cao();
+//     console.log(data.toString());
+// });
 
-Rex.on('pessoa_no_portao', Rex.latir);
-Rex.once('pessoa_no_portao', Rex.latir); //Só executa uma vez
 
-Rex.emit('pessoa_no_portao');
-Rex.emit('pessoa_no_portao');
-Rex.removeListener('pessoa_no_portao', Rex.latir)
-Rex.emit('pessoa_no_portao');
+//ADICIONA CONTEUDO AO FINAL
+// fs.appendFile('my_file.txt', 'Teste', function (err) {
+//     if (err) {
+//         console.log(err);
+//         return;
+//     }
+
+//     console.log('Arquivo alterado');
+// });
+
+
+//LE O CONTEUDO DE FORMA SÍNCRONA
+var data = fs.readFileSync('my_file.txt');
+console.log(data.toString());
