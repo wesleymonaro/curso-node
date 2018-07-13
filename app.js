@@ -1,22 +1,27 @@
-var fs = require('fs'),
-    Promise = require('promise');
+var http = require('http');
+var fs = require('fs');
+var url = require('url');
 
-function read(file) {
-    return new Promise((resolve, reject) => {
-        fs.readFile(file, (err, data) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(data.toString());
-            }
-        })
-    })
-}
+var server = http.createServer((req, res) => {
 
-read('my_file.txt')
-    .then((data) => {
-        console.log(data);
-        return '1111'
+    var url_parts = url.parse(req.url);
+    var path = url_parts.pathname;
+
+    fs.readFile(__dirname + path, (err, data) => {
+        if (err) {
+            res.writeHead(404, { 'Content-Type': 'text/html' });
+            res.write('<p>Not found</p>');
+
+        } else {
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.write(data.toString());
+        }
+
+        res.end();
     })
-    .catch((err) => console.log(err))
-    .done((data) => console.log(data))
+
+})
+
+server.listen(3000);
+
+//http://localhost:3000/my_file.txt
