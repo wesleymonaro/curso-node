@@ -1,15 +1,15 @@
 var express = require('express');
 var MongoClient = require('mongodb').MongoClient;
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
 var app = express();
 
 //app.set('abc', 123); //SETANDO VARIÁVEIS
 
-app.use('/static', express.static('public')) // http://localhost:3000/static/index.html
+app.use('/static', express.static('public')); // http://localhost:3000/static/index.html
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
-}))
+}));
 
 app.set('views', './views');
 app.set('view engine', 'jade');
@@ -59,3 +59,5 @@ function inserirCurso(obj, callback) {
         })
     })
 }
+
+//jshint app.js --config ./configHint.json
